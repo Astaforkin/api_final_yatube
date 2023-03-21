@@ -19,7 +19,7 @@ class CommentViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         post = get_object_or_404(Post, pk=self.kwargs.get('post_id'))
-        return post.comments.all()
+        return post.comments
 
     def perform_create(self, serializer):
         post = get_object_or_404(Post, pk=self.kwargs.get('post_id'))
@@ -37,7 +37,7 @@ class FollowViewSet(
     search_fields = ('following__username', 'user__username')
 
     def get_queryset(self):
-        return self.request.user.follower.all()
+        return self.request.user.follower
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
